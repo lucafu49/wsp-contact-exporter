@@ -84,14 +84,15 @@ function setsAreEqual(set1, set2) {
 // Función para guardar los contactos en un archivo JSON
 function saveContactsToFile() {
   if (allUnsavedContacts.size > 0) {
-    const contactsArray = Array.from(allUnsavedContacts); // Convertir Set a Array
-    const blob = new Blob([JSON.stringify(contactsArray, null, 2)], {
-      type: "application/json",
+    const contactsArray = Array.from(allUnsavedContacts);
+    const csvContent = "Phone\n" + contactsArray.join("\n"); // Crear contenido CSV
+    const blob = new Blob([csvContent], {
+      type: "text/csv",
     });
     const url = URL.createObjectURL(blob);
 
-    chrome.runtime.sendMessage({ action: "download", url: url });
-    console.log("Archivo con contactos guardado.");
+    chrome.runtime.sendMessage({ action: "download", url: url, filename: "contacts.csv" });
+    console.log("Archivo CSV con contactos guardado.");
   } else {
     console.log("No se encontraron contactos para guardar.");
   }
