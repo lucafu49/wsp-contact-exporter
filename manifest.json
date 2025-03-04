@@ -1,0 +1,25 @@
+{
+    "manifest_version": 3,
+    "name": "WhatsApp Contact Extractor",
+    "version": "1.0",
+    "description": "Extrae contactos de WhatsApp Web que no están en tu agenda.",
+    "permissions": ["activeTab", "scripting", "downloads"],
+    "host_permissions": ["https://web.whatsapp.com/"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+      }
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://web.whatsapp.com/"],
+        "js": ["content.js"]
+      }
+    ]
+  }
